@@ -205,7 +205,7 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
           <div>
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-600 mb-2">
               <Gift className={`w-4 h-4 ${accent.icon}`} />
-              Next Gift Idea
+              Next Date Idea
             </label>
             <textarea
               value={giftDraft}

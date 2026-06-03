@@ -51,8 +51,8 @@ function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
         <div className="bg-neutral-900 rounded-3xl shadow-2xl p-10 text-center border border-neutral-800">
           {/* Heart icon */}
           <div className="flex justify-center mb-6">
-            <div className="bg-rose-900 p-5 rounded-full">
-              <Heart className="w-10 h-10 text-rose-500 fill-rose-400" />
+            <div className="bg-purple-900 p-5 rounded-full">
+              <Heart className="w-10 h-10 text-purple-500 fill-purple-400" />
             </div>
           </div>
 
@@ -65,16 +65,16 @@ function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="Secret keyword…"
-              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-500 text-center text-lg tracking-widest"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center text-lg tracking-widest"
               autoFocus
             />
             {error && (
-              <p className="text-rose-400 text-sm">{error}</p>
+              <p className="text-purple-400 text-sm">{error}</p>
             )}
             <button
               type="submit"
               disabled={loading || !keyword.trim()}
-              className="w-full bg-rose-600 hover:bg-rose-700 disabled:bg-rose-900 text-white font-semibold py-3 rounded-xl transition-colors"
+              className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-900 text-white font-semibold py-3 rounded-xl transition-colors"
             >
               {loading ? "Checking…" : "Enter"}
             </button>
@@ -95,7 +95,6 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
   const [saveMsg, setSaveMsg] = useState("");
 
   const displayName = user === "nirdan" ? "Nirdan" : "Hribil";
-  const accentColor = user === "nirdan" ? "rose" : "purple";
 
   useEffect(() => {
     fetch(`/api/data/${user}`)
@@ -133,35 +132,6 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
     }
   }
 
-  const accent = {
-    rose: {
-      card: "border-rose-900 bg-neutral-900",
-      btn: "bg-rose-600 hover:bg-rose-700",
-      badge: "bg-rose-900 text-rose-300",
-      ring: "focus:ring-rose-500",
-      icon: "text-rose-500",
-      heartFill: "fill-rose-400",
-      loveBtn:
-        "bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 shadow-lg shadow-rose-900",
-      text: "text-gray-200",
-      label: "text-gray-300",
-      placeholder: "placeholder-gray-500",
-    },
-    purple: {
-      card: "border-purple-900 bg-neutral-900",
-      btn: "bg-purple-600 hover:bg-purple-700",
-      badge: "bg-purple-900 text-purple-300",
-      ring: "focus:ring-purple-500",
-      icon: "text-purple-500",
-      heartFill: "fill-purple-400",
-      loveBtn:
-        "bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 shadow-lg shadow-purple-900",
-      text: "text-gray-200",
-      label: "text-gray-300",
-      placeholder: "placeholder-gray-500",
-    },
-  }[accentColor];
-
   return (
     <div className="min-h-screen bg-black p-4 sm:p-8">
       <div className="max-w-lg mx-auto">
@@ -183,13 +153,15 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
         </div>
 
         {/* I Love You button */}
-        <div className={`rounded-3xl shadow-lg p-8 mb-5 text-center border ${accent.card}`}>
+        <div className="rounded-3xl shadow-lg p-8 mb-5 text-center border border-purple-900 bg-neutral-900">
           <button
             onClick={handleLove}
-            className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white text-xl font-bold shadow-lg transition-all active:scale-95 ${accent.loveBtn} ${loveBurst ? "scale-110" : ""}`}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white text-xl font-bold shadow-lg transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 shadow-lg shadow-purple-900"
+            style={{transform: loveBurst ? "scale(1.1)" : "scale(1)"}}
           >
             <Heart
-              className={`w-7 h-7 transition-transform ${loveBurst ? "scale-150" : ""} ${accent.heartFill}`}
+              className="w-7 h-7 transition-transform fill-purple-400 text-purple-500"
+              style={{transform: loveBurst ? "scale(1.5)" : "scale(1)"}}
             />
             I love you
           </button>
@@ -210,11 +182,11 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
         </div>
 
         {/* Data card */}
-        <div className={`rounded-3xl shadow-lg p-8 border ${accent.card} space-y-6`}>
+        <div className="rounded-3xl shadow-lg p-8 border border-purple-900 bg-neutral-900 space-y-6">
           {/* Gift idea */}
           <div>
-            <label className={`flex items-center gap-2 text-sm font-semibold ${accent.label} mb-2`}>
-              <Gift className={`w-4 h-4 ${accent.icon}`} />
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-2">
+              <Gift className="w-4 h-4 text-purple-500" />
               Next Date Idea
             </label>
             <textarea
@@ -222,21 +194,21 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
               onChange={(e) => setGiftDraft(e.target.value)}
               placeholder="e.g. A surprise dinner, a cozy blanket…"
               rows={3}
-              className={`w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 ${accent.text} focus:outline-none focus:ring-2 ${accent.ring} resize-none text-sm ${accent.placeholder}`}
+              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none text-sm placeholder-gray-500"
             />
           </div>
 
           {/* Important date */}
           <div>
-            <label className={`flex items-center gap-2 text-sm font-semibold ${accent.label} mb-2`}>
-              <Calendar className={`w-4 h-4 ${accent.icon}`} />
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-2">
+              <Calendar className="w-4 h-4 text-purple-500" />
               Important Date
             </label>
             <input
               type="date"
               value={dateDraft}
               onChange={(e) => setDateDraft(e.target.value)}
-              className={`w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 ${accent.text} focus:outline-none focus:ring-2 ${accent.ring} text-sm`}
+              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
             />
           </div>
 
@@ -245,12 +217,12 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
             <button
               onClick={handleSave}
               disabled={saving}
-              className={`flex-1 ${accent.btn} disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors`}
+              className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors"
             >
               {saving ? "Saving…" : "Save Changes"}
             </button>
             {saveMsg && (
-              <span className={`text-sm font-medium ${accent.badge} px-3 py-1.5 rounded-lg`}>
+              <span className="text-sm font-medium bg-purple-900 text-purple-300 px-3 py-1.5 rounded-lg">
                 {saveMsg}
               </span>
             )}

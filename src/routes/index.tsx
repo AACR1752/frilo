@@ -15,7 +15,7 @@ interface UserData {
   loveCount: number;
 }
 
-// ─── Login Screen ──────────────────────────────────────────────────────────
+// ─── Login Screen ────────────────────────────────────────────────────────
 function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState("");
@@ -201,6 +201,12 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
               &nbsp;time{data.loveCount !== 1 ? "s" : ""}
             </p>
           )}
+          {/* Image */}
+          <img
+            src="/ily.jpeg"
+            alt="I Love You"
+            className="w-full h-64 object-cover rounded-2xl mt-6"
+          />
         </div>
 
         {/* Data card */}

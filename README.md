@@ -1,6 +1,6 @@
 # Love Tracker
 
-A personal web app for two users — **Nirdan** and **Hribil** — to track gift ideas, important dates, and send love taps to each other.
+A personal web app for [1] users to track gift ideas, important dates, and send love taps to each other.
 
 ## Key Technologies
 

@@ -175,7 +175,7 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
           )}
           {/* Image */}
           <img
-            src="/ily.jpeg"
+            src="/ily.jpg"
             alt="I Love You"
             className="w-full h-64 object-cover rounded-2xl mt-6"
           />

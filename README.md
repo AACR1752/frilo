@@ -15,4 +15,4 @@ A personal web app for two users — **Nirdan** and **Hribil** — to track gift
 2. Start dev server: `netlify dev`
 3. Open `http://localhost:8888`
 
-Login with the keyword `Nirdan` or `Hribil` (case-insensitive) to access the respective dashboard.
+Login with the keyword `******` or `******` (case-insensitive) to access the respective dashboard.

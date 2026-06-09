@@ -198,6 +198,13 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
             />
           </div>
 
+          {/*Link to Spotify*/}
+          <div>
+            <a href="https://open.spotify.com/artist/4cneZ8WGIBTj2EDiN5T1jv" target="_blank" rel="noopener noreferrer">
+            Just click on it!
+            </a>
+          </div>
+
           {/* Important date */}
           <div>
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-2">

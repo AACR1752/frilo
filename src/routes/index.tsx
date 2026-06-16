@@ -15,6 +15,13 @@ interface UserData {
   loveCount: number;
 }
 
+interface Countdown {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 // ─── Login Screen ────────────────────────────────────────────────────────
 function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
   const [keyword, setKeyword] = useState("");
@@ -65,7 +72,7 @@ function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="Secret keyword…"
-              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center text-lg tracking-widest"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center text-lg"
               autoFocus
             />
             {error && (
@@ -79,6 +86,61 @@ function LoginScreen({ onLogin }: { onLogin: (user: UserType) => void }) {
               {loading ? "Checking…" : "Enter"}
             </button>
           </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Countdown Component ─────────────────────────────────────────────────
+function CountdownTimer() {
+  const [countdown, setCountdown] = useState<Countdown>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    function calculateCountdown() {
+      const targetDate = new Date("2026-06-28T23:59:59").getTime();
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setCountdown({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      }
+    }
+
+    calculateCountdown();
+    const interval = setInterval(calculateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="text-center">
+      <p className="text-xs font-semibold text-gray-400 mb-2">COUNTDOWN TO</p>
+      <div className="grid grid-cols-4 gap-2">
+        <div className="bg-neutral-800 rounded-lg p-3 border border-neutral-700">
+          <p className="text-xl font-bold text-purple-400">{countdown.days}</p>
+          <p className="text-xs text-gray-500">Days</p>
+        </div>
+        <div className="bg-neutral-800 rounded-lg p-3 border border-neutral-700">
+          <p className="text-xl font-bold text-purple-400">{countdown.hours}</p>
+          <p className="text-xs text-gray-500">Hours</p>
+        </div>
+        <div className="bg-neutral-800 rounded-lg p-3 border border-neutral-700">
+          <p className="text-xl font-bold text-purple-400">{countdown.minutes}</p>
+          <p className="text-xs text-gray-500">Mins</p>
+        </div>
+        <div className="bg-neutral-800 rounded-lg p-3 border border-neutral-700">
+          <p className="text-xl font-bold text-purple-400">{countdown.seconds}</p>
+          <p className="text-xs text-gray-500">Secs</p>
         </div>
       </div>
     </div>
@@ -156,7 +218,7 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
         <div className="rounded-3xl shadow-lg p-8 mb-5 text-center border border-purple-900 bg-neutral-900">
           <button
             onClick={handleLove}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white text-xl font-bold shadow-lg transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 shadow-lg shadow-purple-900"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white text-xl font-bold shadow-lg transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700"
             style={{transform: loveBurst ? "scale(1.1)" : "scale(1)"}}
           >
             <Heart
@@ -198,10 +260,15 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
             />
           </div>
 
-          {/*Link to Spotify*/}
+          {/* Link to Spotify */}
           <div>
-            <a href="https://open.spotify.com/artist/4cneZ8WGIBTj2EDiN5T1jv" target="_blank" rel="noopener noreferrer">
-            Just click on it!
+            <a
+              href="https://open.spotify.com/artist/4cneZ8WGIBTj2EDiN5T1jv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-semibold transition-colors"
+            >
+              🎵 Listen on Spotify
             </a>
           </div>
 
@@ -218,6 +285,9 @@ function Dashboard({ user, onLogout }: { user: NonNullable<UserType>; onLogout: 
               className="w-full px-4 py-3 rounded-xl border border-neutral-700 bg-neutral-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
             />
           </div>
+
+          {/* Countdown to June 28 */}
+          <CountdownTimer />
 
           {/* Save button */}
           <div className="flex items-center gap-3 pt-1">

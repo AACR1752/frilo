@@ -1,5 +1,7 @@
 # Love Tracker
 
+https://sage-jalebi-4be8d5.netlify.app/
+
 A personal web app for [1] users to track gift ideas, important dates, and send love taps to each other.
 
 ## Key Technologies
